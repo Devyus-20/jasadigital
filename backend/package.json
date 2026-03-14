@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start":       "node server.js",
+    "start:demo":  "node -r dotenv/config server.js dotenv_config_path=.env.demo",
+    "start:prod":  "node -r dotenv/config server.js dotenv_config_path=.env.production",
+    "dev":         "nodemon server.js"
+  }
+}

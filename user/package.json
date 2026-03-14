@@ -1,0 +1,9 @@
+
+{
+  "scripts": {
+    "dev":          "vite",
+    "build:demo":   "vite build --mode demo",
+    "build:prod":   "vite build --mode production",
+    "preview":      "vite preview"
+  }
+}
