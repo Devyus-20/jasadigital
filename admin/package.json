@@ -1,4 +1,6 @@
 {
+    "type": "module",
+    "name": "admin",
   "scripts": {
     "dev":          "vite",
     "build:demo":   "vite build --mode demo",

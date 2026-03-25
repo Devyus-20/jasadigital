@@ -3,8 +3,8 @@
 -- Jalankan file ini di MySQL Workbench
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS jasadigital_db;
-USE jasadigital_db;
+--CREATE DATABASE IF NOT EXISTS jasadigital_db;
+--USE jasadigital_db;
 
 -- ── TABEL USERS ──────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS users (
