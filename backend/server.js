@@ -5,7 +5,16 @@ const isDemoMode = process.env.DEMO_MODE === 'true';
 const app = express();
 
 // ── Middleware ────────────────────────────────────────────────
-app.use(cors({ origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175"] }));
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "https://jasadigital.vercel.app",
+    "https://jasadigital-admin.vercel.app",
+  ],
+  credentials: true
+}));
 app.use(express.json());
 app.use((req, res, next) => {
   res.setHeader('X-Demo-Mode', isDemoMode ? 'true' : 'false');
