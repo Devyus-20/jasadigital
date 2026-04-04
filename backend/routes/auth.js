@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
 
     const hashed = await bcrypt.hash(password, 10);
     const [result] = await pool.query(
-      "INSERT INTO users (nama, email, password, no_hp, role, is_aktif, created_at, updated_at) VALUES (?,?,?,?,'pelanggan',1,NOW(),NOW())",
+      "INSERT INTO users (nama, email, password, no_hp, role, aktif, created_at, updated_at) VALUES (?,?,?,?,'pelanggan',1,NOW(),NOW())",
       [nama, email, hashed, hp||""]
     );
     const newUser = { id: result.insertId, nama, email, hp: hp||"", role: "pelanggan", aktif: true };
@@ -39,7 +39,17 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ ok: false, msg: "Email atau password salah." });
 
     const user = rows[0];
-    if (!user.is_aktif)
+
+    // DEBUG — lihat nilai aktif dari database
+    console.log("DEBUG LOGIN:", JSON.stringify({
+      id: user.id,
+      email: user.email,
+      aktif: user.aktif,
+      aktif_type: typeof user.aktif,
+      role: user.role
+    }));
+
+    if (!user.aktif)
       return res.status(403).json({ ok: false, msg: "Akun Anda dinonaktifkan." });
 
     const match = await bcrypt.compare(password, user.password);
@@ -52,7 +62,7 @@ router.post("/login", async (req, res) => {
       user: {
         id: user.id, nama: user.nama, email: user.email,
         hp: user.no_hp, kota: user.kota, role: user.role,
-        aktif: user.is_aktif, createdAt: user.created_at
+        aktif: user.aktif, createdAt: user.created_at
       }
     });
   } catch (err) {
