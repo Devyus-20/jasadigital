@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
 
     const hashed = await bcrypt.hash(password, 10);
     const [result] = await pool.query(
-      "INSERT INTO users (nama, email, password, no_hp, role, aktif, created_at, updated_at) VALUES (?,?,?,?,'pelanggan',1,NOW(),NOW())",
+      "INSERT INTO users (nama, email, password, hp, role, aktif, created_at) VALUES (?,?,?,?,'pelanggan',1,NOW(),NOW())",
       [nama, email, hashed, hp||""]
     );
     const newUser = { id: result.insertId, nama, email, hp: hp||"", role: "pelanggan", aktif: true };
@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
       ok: true, token,
       user: {
         id: user.id, nama: user.nama, email: user.email,
-        hp: user.no_hp, kota: user.kota, role: user.role,
+        hp: user.hp, kota: user.kota, role: user.role,
         aktif: user.aktif, createdAt: user.created_at
       }
     });
